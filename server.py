@@ -7,6 +7,8 @@ import io
 # Initialize FastAPI app
 app = FastAPI()
 
+class_names = ['Butter', 'Eggs', 'PackagedBread']
+
 # Load the model once when the server starts
 model = tf.keras.models.load_model("IngredientClassifier.h5")  # Make sure your model is in the 'model' directory
 
@@ -21,15 +23,15 @@ def preprocess_image(image_bytes):
 @app.post("/predict/")
 async def predict(file: UploadFile = File(...)):
     try:
-        # Read file bytes and preprocess image
         image_bytes = await file.read()
         img_array = preprocess_image(image_bytes)
 
-        # Make prediction
-        predictions = model.predict(img_array)
-        predicted_class = int(np.argmax(predictions[0]))  # Get class index
+        predictions = model.predict(img_array)[0]  # Get the prediction array
+        predicted_index = int(np.argmax(predictions))  # Get highest probability index
+        predicted_label = class_names[predicted_index]  # Get class name
+        confidence = float(predictions[predicted_index])  # Get confidence score
 
-        return {"predicted_class": predicted_class}
+        return {"predicted_class": predicted_label, "confidence": confidence}
     except Exception as e:
         return {"error": str(e)}
 
