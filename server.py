@@ -1,8 +1,9 @@
 from fastapi import FastAPI, File, UploadFile
 import tensorflow as tf
+import io
 import numpy as np
 from PIL import Image
-import io
+import os
 
 # Initialize FastAPI app
 app = FastAPI()
@@ -10,7 +11,8 @@ app = FastAPI()
 class_names = ['Butter', 'Eggs', 'PackagedBread']
 
 # Load the model once when the server starts
-model = tf.keras.models.load_model("IngredientClassifier.h5")  # Make sure your model is in the 'model' directory
+model_path = os.path.join("CNNModels", "IngredientClassifier.h5")
+model = tf.keras.models.load_model(model_path)
 
 # Preprocessing function
 def preprocess_image(image_bytes):
