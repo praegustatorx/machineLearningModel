@@ -20,6 +20,10 @@ uvicorn server:app --reload
 ```
  docker run -p 8000:8000 <your-image-name>
 ```
+### Unit Tests
+``` 
+ pytest
+```
 
 ### Test endpoint
 
