@@ -2,7 +2,7 @@
 
 # Variables
 IMAGE_NAME="py-backend"
-DOCKERFILE_PATH="Docker/Dockerfile"
+DOCKERFILE_PATH="docker/Dockerfile"
 CONTEXT_DIR="."
 
 # Build command

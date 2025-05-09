@@ -1,6 +1,6 @@
 # Variables
 $ImageName = "py-backend"
-$DockerfilePath = "Docker/Dockerfile"
+$DockerfilePath = "docker/Dockerfile"
 $ContextDir = "."
 
 # Resolve the Dockerfile path (absolute path is safer)

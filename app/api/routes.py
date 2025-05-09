@@ -37,3 +37,4 @@ async def extract_text(file: UploadFile = File(...)):
         return {"extracted_text": extracted_text}
     except Exception as e:
         return {"error": str(e)}
+    

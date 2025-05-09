@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: py-backend-service
+spec:
+  selector:
+    app: py-backend-app # Matches the labels in your Deployment
+  ports:
+    - protocol: TCP
+      port: 80    # The port the load balancer/NodePort will listen on
+      targetPort: 8000 # The port your container exposes
+  type: LoadBalancer # Or NodePort, depending on your preference

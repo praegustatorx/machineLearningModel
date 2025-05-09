@@ -26,6 +26,12 @@ uvicorn app.main:app --reload
 ```
  docker run -p 8000:8000 <your-image-name>
 ```
+
+### Run Compose
+```
+ docker-compose -f Docker/docker-compose.yml up
+```
+
 ### Unit Tests
 ``` 
  pytest

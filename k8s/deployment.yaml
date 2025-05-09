@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: py-backend-deployment # A more specific name
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: py-backend-app
+  template:
+    metadata:
+      labels:
+        app: py-backend-app
+    spec:
+      containers:
+        - name: py-backend-container # A more specific container name
+          image: ameyamahankal/py-backend:latest # Replace with your registry path and tag
+          imagePullPolicy: Always # Remove this and use image tags
+          ports:
+            - containerPort: 8000 # As defined in your Dockerfile
+          # Add any environment variables, resource requests/limits,
+          # liveness/readiness probes specific to your app here.
