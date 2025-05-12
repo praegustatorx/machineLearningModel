@@ -2,10 +2,12 @@ from fastapi import APIRouter, File, UploadFile
 from app.services.image_utils import preprocess_image
 from app.services.model_loader import model
 from app.core.config import class_names
+from app.services.ocr_service import extract_text_and_date
 import numpy as np
 from PIL import Image
 import pytesseract
 import io
+import re
 
 router = APIRouter()
 
@@ -24,17 +26,13 @@ async def predict(file: UploadFile = File(...)):
     except Exception as e:
         return {"error": str(e)}
 
-
 @router.post("/ocr/")
 async def extract_text(file: UploadFile = File(...)):
     try:
         image_bytes = await file.read()
-        image = Image.open(io.BytesIO(image_bytes))
-
-        # Perform OCR using pytesseract
-        extracted_text = pytesseract.image_to_string(image)
-
-        return {"extracted_text": extracted_text}
+        date_text = extract_text_and_date(image_bytes)
+        return {"extracted_text": date_text}
     except Exception as e:
         return {"error": str(e)}
+
     
