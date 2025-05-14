@@ -1,10 +1,10 @@
-name: Docker Image CI/CD
+name: Continuous Deployment-GKE
 
 on:
   push:
-    branches: [  "release/**" ] 
+    branches: [  "xrelease/**" ] 
   pull_request:
-    branches: [  "release/**" ]
+    branches: [  "xrelease/**" ]
 
 jobs:
   build-and-push:
@@ -36,8 +36,8 @@ jobs:
           file: Docker/Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/pipelinepy:${{ env.COMMIT_SHA }}
-            ${{ secrets.DOCKERHUB_USERNAME }}/pipelinepy:latest 
+            ${{ secrets.DOCKERHUB_USERNAME }}/py-backend:${{ env.COMMIT_SHA }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/py-backend:latest 
 
       - name: Image details
         if: steps.build-push.outputs.digest
